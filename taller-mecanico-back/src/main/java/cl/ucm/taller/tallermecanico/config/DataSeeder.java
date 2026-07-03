@@ -71,10 +71,10 @@ public class DataSeeder implements CommandLineRunner {
         // 3. Datos del dominio para que el frontend tenga algo que mostrar
         if (clienteRepository.count() == 0) {
             System.out.println("🌱 Base de datos vacía. Insertando Mocks de Clientes y Vehículos...");
-            Cliente c1 = new Cliente(null, "12345678-9", "Juan Pérez", "juan@tonosmotors.cl", "+56912345678");
-            Cliente c2 = new Cliente(null, "98765432-1", "Empresa Transportes Spa", "contacto@transportes.cl", "+56987654321");
-            Cliente c3 = new Cliente(null, "11111111-1", "María González", "maria@mail.com", "+56911111111");
-            Cliente c4 = new Cliente(null, "22222222-2", "Pedro Soto", "pedro@mail.com", "+56922222222");
+            Cliente c1 = new Cliente(null, "Juan Pérez", "12345678-9", "+5691234567", "juan@tonosmotors.cl");
+            Cliente c2 = new Cliente(null, "Empresa Transportes Spa", "98765432-1", "+5698765432", "contacto@transportes.cl");
+            Cliente c3 = new Cliente(null, "María González", "11111111-1", "+5691111111", "maria@mail.com");
+            Cliente c4 = new Cliente(null, "Pedro Soto", "22222222-2", "+5692222222", "pedro@mail.com");
             clienteRepository.saveAll(List.of(c1, c2, c3, c4));
 
             Vehiculo v1 = new Vehiculo(null, "AABB-11", "Toyota", "Yaris", 2018, c1);
