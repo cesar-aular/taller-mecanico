@@ -12,5 +12,29 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  backend-taller:
+    build:
+      context: ./taller-mecanico-back
+      dockerfile: Dockerfile
+    container_name: taller_mecanico_backend
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db-taller:5432/taller
+    ports:
+      - "8080:8067"
+    depends_on:
+      - db-taller
+
+  frontend-taller:
+    build:
+      context: ./taller-mecanico-front
+      dockerfile: Dockerfile
+    container_name: taller_mecanico_frontend
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend-taller
+
 volumes:
   postgres_data:
