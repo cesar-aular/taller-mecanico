@@ -8,6 +8,9 @@ import ClienteDetalle from './pages/ClienteDetalle.jsx'
 import ClienteForm from './pages/ClienteForm.jsx'
 import VehiculosList from './pages/VehiculosList.jsx'
 import VehiculoForm from './pages/VehiculoForm.jsx'
+import Register from './pages/Register.jsx'
+import UserManagement from './pages/UserManagement.jsx'
+import Reservas from './pages/Reservas.jsx'
 
 // Mapa de rutas de la SPA.
 // - /login es pública.
@@ -19,8 +22,12 @@ export default function App() {
       <NavBar />
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
         <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        
+        <Route path="/reservas" element={<ProtectedRoute><Reservas /></ProtectedRoute>} />
+        <Route path="/usuarios" element={<ProtectedRoute requireAdmin><UserManagement /></ProtectedRoute>} />
 
         <Route path="/clientes" element={<ProtectedRoute><ClientesList /></ProtectedRoute>} />
         <Route path="/clientes/nuevo" element={<ProtectedRoute requireAdmin><ClienteForm /></ProtectedRoute>} />

@@ -128,7 +128,7 @@ export default function Dashboard() {
                 <h1 className="display-4 mb-3">📅</h1>
                 <h5 className="card-title">Agendar Cita</h5>
                 <p className="card-text mb-4">Solicita un turno de servicio y elige a tu mecánico de preferencia (Toño, Carlos, etc).</p>
-                <button className="btn btn-warning w-100" onClick={() => alert("Módulo de reservas en construcción.")}>Reservar ahora</button>
+                <Link to="/reservas" className="btn btn-warning w-100">Reservar ahora</Link>
               </div>
             </div>
           </div>
