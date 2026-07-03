@@ -11,6 +11,7 @@ import VehiculoForm from './pages/VehiculoForm.jsx'
 import Register from './pages/Register.jsx'
 import UserManagement from './pages/UserManagement.jsx'
 import Reservas from './pages/Reservas.jsx'
+import Ordenes from './pages/Ordenes.jsx'
 
 // Mapa de rutas de la SPA.
 // - /login es pública.
@@ -28,13 +29,16 @@ export default function App() {
         
         <Route path="/reservas" element={<ProtectedRoute><Reservas /></ProtectedRoute>} />
         <Route path="/usuarios" element={<ProtectedRoute requireAdmin><UserManagement /></ProtectedRoute>} />
+        <Route path="/ordenes" element={<ProtectedRoute requireAdmin><Ordenes /></ProtectedRoute>} />
 
-        <Route path="/clientes" element={<ProtectedRoute requireAdmin><ClientesList /></ProtectedRoute>} />
+        {/* Listados y detalle: lectura para USER y ADMIN (funcionalidad ROLE_USER).
+            Crear/editar exigen ADMIN. */}
+        <Route path="/clientes" element={<ProtectedRoute><ClientesList /></ProtectedRoute>} />
         <Route path="/clientes/nuevo" element={<ProtectedRoute requireAdmin><ClienteForm /></ProtectedRoute>} />
-        <Route path="/clientes/:id" element={<ProtectedRoute requireAdmin><ClienteDetalle /></ProtectedRoute>} />
+        <Route path="/clientes/:id" element={<ProtectedRoute><ClienteDetalle /></ProtectedRoute>} />
         <Route path="/clientes/:id/editar" element={<ProtectedRoute requireAdmin><ClienteForm /></ProtectedRoute>} />
 
-        <Route path="/vehiculos" element={<ProtectedRoute requireAdmin><VehiculosList /></ProtectedRoute>} />
+        <Route path="/vehiculos" element={<ProtectedRoute><VehiculosList /></ProtectedRoute>} />
         <Route path="/vehiculos/nuevo" element={<ProtectedRoute requireAdmin><VehiculoForm /></ProtectedRoute>} />
         <Route path="/vehiculos/:id/editar" element={<ProtectedRoute requireAdmin><VehiculoForm /></ProtectedRoute>} />
 

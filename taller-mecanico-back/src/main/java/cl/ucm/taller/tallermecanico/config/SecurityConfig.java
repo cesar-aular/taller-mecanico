@@ -36,6 +36,11 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 // Reglas según Rúbrica (Página 3)
                 .requestMatchers("/auth/**").permitAll()
+                // Lecturas exclusivas de ADMIN (datos internos del negocio): deben ir
+                // ANTES de la regla general de GET para que tengan prioridad.
+                .requestMatchers(HttpMethod.GET, "/api/dashboard/**").hasAuthority("ROLE_ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/ordenes/**").hasAuthority("ROLE_ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/users/**").hasAuthority("ROLE_ADMIN")
                 .requestMatchers(HttpMethod.GET, "/api/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/reservas/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/**").hasAuthority("ROLE_ADMIN")

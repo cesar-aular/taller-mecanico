@@ -12,11 +12,13 @@ export default function Dashboard() {
   const [metrics, setMetrics] = useState(null)
 
   useEffect(() => {
-    // Si queremos obtener metricas del backend
+    // Las métricas del negocio son datos internos: solo el ADMIN las carga.
+    // El endpoint /api/dashboard/** está restringido a ROLE_ADMIN en el backend.
+    if (!isAdmin) return
     apiFetch('/api/dashboard/metrics')
       .then(data => setMetrics(data))
       .catch(err => console.error("Error al cargar metricas:", err))
-  }, [])
+  }, [isAdmin])
 
   return (
     <div className="container pb-5">
@@ -141,7 +143,7 @@ export default function Dashboard() {
                 <h1 className="display-4 mb-3">📋</h1>
                 <h5 className="card-title">Órdenes de Trabajo</h5>
                 <p className="card-text mb-4">Revisa el estado de todas las reparaciones, mecánicos asignados y repuestos.</p>
-                <button className="btn btn-warning w-100" onClick={() => alert("Módulo de órdenes en construcción.")}>Ver Órdenes</button>
+                <Link to="/ordenes" className="btn btn-warning w-100">Ver Órdenes</Link>
               </div>
             </div>
           </div>

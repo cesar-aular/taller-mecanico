@@ -80,8 +80,8 @@ export default function Reservas() {
 
       <div className="row">
         <div className="col-md-6 mb-4">
-          <div className="card shadow border-info h-100">
-            <div className="card-header bg-info text-dark fw-bold">Nueva Reserva</div>
+          <div className="card shadow h-100">
+            <div className="card-header fw-bold text-warning">Nueva Reserva</div>
             <div className="card-body">
               {error && <div className="alert alert-danger">{error}</div>}
               {success && <div className="alert alert-success">{success}</div>}
@@ -128,7 +128,7 @@ export default function Reservas() {
               </select>
             </div>
 
-            <button type="submit" className="btn btn-info w-100 fw-bold" disabled={loading}>
+            <button type="submit" className="btn btn-warning w-100 fw-bold" disabled={loading}>
               {loading ? 'Procesando...' : 'Confirmar Reserva'}
             </button>
           </form>
@@ -137,13 +137,13 @@ export default function Reservas() {
         </div>
 
         <div className="col-md-6 mb-4">
-          <div className="card shadow border-warning h-100">
-            <div className="card-header bg-warning text-dark fw-bold">Mis Reservas</div>
+          <div className="card shadow h-100">
+            <div className="card-header fw-bold text-warning">Mis Reservas</div>
             <div className="card-body p-0">
               {loadingReservas ? (
                 <div className="p-4 text-center"><div className="spinner-border text-warning"/></div>
               ) : reservas.length === 0 ? (
-                <div className="p-4 text-center text-muted">Aún no has agendado ninguna cita.</div>
+                <div className="empty-state m-3">📭 Aún no has agendado ninguna cita.<br/>Completa el formulario para reservar tu primera visita.</div>
               ) : (
                 <ul className="list-group list-group-flush">
                   {reservas.map(r => (

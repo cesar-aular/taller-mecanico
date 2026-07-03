@@ -4,6 +4,7 @@ import cl.ucm.taller.tallermecanico.entity.Cliente;
 import cl.ucm.taller.tallermecanico.error.ConflictException;
 import cl.ucm.taller.tallermecanico.error.NotFoundException;
 import cl.ucm.taller.tallermecanico.repository.ClienteRepository;
+import cl.ucm.taller.tallermecanico.repository.VehiculoRepository;
 import cl.ucm.taller.tallermecanico.service.ClienteService;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     // Dependencia inyectada: El servicio usa el repositorio, NUNCA usa SQL directo
     private final ClienteRepository clienteRepository;
+    private final VehiculoRepository vehiculoRepository;
 
     @Override
     public List<Cliente> obtenerTodos() {
@@ -61,6 +63,14 @@ public class ClienteServiceImpl implements ClienteService {
     public void eliminar(Long id) {
         // deleteById no falla si el id no existe, por eso validamos primero (-> 404)
         Cliente cliente = buscarPorId(id);
+
+        // Un vehículo apunta al cliente con FK NOT NULL; borrar el cliente rompería
+        // la integridad referencial. En vez de un 500 feo de la BD, avisamos con 409.
+        if (vehiculoRepository.existsByClienteId(id)) {
+            throw new ConflictException(
+                "No se puede eliminar el cliente porque tiene vehículos asociados. Elimina primero sus vehículos.");
+        }
+
         clienteRepository.delete(cliente);
     }
 }

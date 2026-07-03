@@ -4,17 +4,23 @@
    ============================================================ */
 
 :root {
-  --tm-bg-1:      #1b1e23;
-  --tm-bg-2:      #121417;
-  --tm-surface:   #23262c;
-  --tm-surface-2: #2b2f36;
-  --tm-border:    #363b43;
+  --tm-bg-1:      #20242b;
+  --tm-bg-2:      #14171c;
+  --tm-surface:   #272b32;
+  --tm-surface-2: #2f343c;
+  --tm-border:    #3b414a;
   --tm-amber:     #ffc107;
   --tm-amber-dk:  #e0a800;
-  --tm-steel:     #4d9fd6;
-  --tm-text:      #e9ecef;
-  --tm-muted:     #9aa4af;
+  --tm-steel:     #5aa9dd;
+  --tm-text:      #eef1f4;
+  --tm-muted:     #aeb7c2;
 }
+
+/* Legibilidad: el .text-muted de Bootstrap es casi invisible sobre el fondo
+   oscuro. Lo forzamos a un gris claro legible en toda la app. */
+.text-muted,
+.text-body-secondary { color: var(--tm-muted) !important; }
+small, .small { color: inherit; }
 
 body {
   background-color: var(--tm-bg-1);
@@ -179,14 +185,27 @@ textarea.form-control {
 .alert-success { background: rgba(25, 135, 84, 0.16); border-color: rgba(25, 135, 84, 0.4); color: #7ee2b0; }
 .alert-warning { background: rgba(255, 193, 7, 0.14); border-color: rgba(255, 193, 7, 0.4); color: #ffd95e; }
 
+/* ---- Estado vacío ---- */
+.empty-state {
+  text-align: center;
+  padding: 28px 20px;
+  border: 1px dashed var(--tm-border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--tm-muted);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
 /* ---- Footer ---- */
 .footer {
-  background-color: rgba(18, 20, 23, 0.95);
+  background-color: rgba(15, 17, 21, 0.97);
   border-top: 1px solid var(--tm-border);
-  color: var(--tm-muted);
+  color: #c2cad3;
   padding: 22px 0;
   margin-top: auto;
 }
+.footer .text-muted { color: #b3bcc6 !important; }
 
 /* ---- Dashboard: métricas ---- */
 .metric-card {
