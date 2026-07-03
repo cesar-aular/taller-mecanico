@@ -34,8 +34,8 @@ export default function Dashboard() {
               {user.roles.map(r => r.replace('ROLE_', '')).join(', ')}
             </span> —{' '}
             {isAdmin
-              ? 'Tienes acceso total al sistema (crear, editar, eliminar).'
-              : 'Puedes explorar y reservar servicios.'}
+              ? 'Jefe de taller: acceso total (crear, editar, eliminar, usuarios y métricas del negocio).'
+              : 'Secretaría: agenda citas, recepciona vehículos y convierte citas en órdenes de trabajo.'}
           </p>
         </div>
       </div>
@@ -122,28 +122,53 @@ export default function Dashboard() {
           </div>
         </div>
         
-        {/* User extra options requested by prompt */}
-        {!isAdmin && (
-          <div className="col-md-4">
-            <div className="card h-100 border-warning">
-              <div className="card-body text-center">
-                <h1 className="display-4 mb-3">📅</h1>
-                <h5 className="card-title">Agendar Cita</h5>
-                <p className="card-text mb-4">Solicita un turno de servicio y elige a tu mecánico de preferencia (Toño, Carlos, etc).</p>
-                <Link to="/reservas" className="btn btn-warning w-100">Reservar ahora</Link>
-              </div>
+        {/* Órdenes de trabajo: lo ven ambos roles */}
+        <div className="col-md-4">
+          <div className="card h-100 border-warning">
+            <div className="card-body text-center">
+              <h1 className="display-4 mb-3">📋</h1>
+              <h5 className="card-title">Órdenes de Trabajo</h5>
+              <p className="card-text mb-4">Estado de las reparaciones, mecánicos asignados y repuestos.</p>
+              <Link to="/ordenes" className="btn btn-outline-warning w-100">Ver órdenes</Link>
             </div>
           </div>
+        </div>
+
+        {/* Secretaría (USER): agenda citas y las convierte en órdenes */}
+        {!isAdmin && (
+          <>
+            <div className="col-md-4">
+              <div className="card h-100 border-warning">
+                <div className="card-body text-center">
+                  <h1 className="display-4 mb-3">🗂️</h1>
+                  <h5 className="card-title">Citas Agendadas</h5>
+                  <p className="card-text mb-4">Recepciona el vehículo y convierte la cita en una orden de trabajo.</p>
+                  <Link to="/citas" className="btn btn-warning w-100">Gestionar citas</Link>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="card h-100 border-warning">
+                <div className="card-body text-center">
+                  <h1 className="display-4 mb-3">📅</h1>
+                  <h5 className="card-title">Agendar Cita</h5>
+                  <p className="card-text mb-4">Registra una nueva cita eligiendo motivo, fecha y mecánico.</p>
+                  <Link to="/reservas" className="btn btn-warning w-100">Agendar ahora</Link>
+                </div>
+              </div>
+            </div>
+          </>
         )}
-        
+
+        {/* Jefe (ADMIN): administración de usuarios */}
         {isAdmin && (
           <div className="col-md-4">
             <div className="card h-100 border-warning">
               <div className="card-body text-center">
-                <h1 className="display-4 mb-3">📋</h1>
-                <h5 className="card-title">Órdenes de Trabajo</h5>
-                <p className="card-text mb-4">Revisa el estado de todas las reparaciones, mecánicos asignados y repuestos.</p>
-                <Link to="/ordenes" className="btn btn-warning w-100">Ver Órdenes</Link>
+                <h1 className="display-4 mb-3">👥</h1>
+                <h5 className="card-title">Usuarios y Roles</h5>
+                <p className="card-text mb-4">Administra las cuentas del personal y sus privilegios de acceso.</p>
+                <Link to="/usuarios" className="btn btn-warning w-100">Gestionar usuarios</Link>
               </div>
             </div>
           </div>

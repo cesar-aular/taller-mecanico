@@ -73,9 +73,10 @@ export default function Reservas() {
 
   return (
     <div className="container mt-4" style={{ maxWidth: 800 }}>
-      <h2 className="mb-4 text-warning">Agendar Cita en Toño's Motors</h2>
+      <h2 className="mb-4 text-warning">Agendar Cita</h2>
       <p className="text-light">
-        Selecciona la fecha y describe el problema de tu vehículo. Asignaremos al mecánico disponible o al de tu preferencia.
+        Registra una nueva cita del cliente: describe el motivo, elige fecha y asigna un mecánico.
+        Luego podrás convertirla en orden de trabajo desde <strong>Citas</strong>.
       </p>
 
       <div className="row">
@@ -138,7 +139,7 @@ export default function Reservas() {
 
         <div className="col-md-6 mb-4">
           <div className="card shadow h-100">
-            <div className="card-header fw-bold text-warning">Mis Reservas</div>
+            <div className="card-header fw-bold text-warning">Últimas citas</div>
             <div className="card-body p-0">
               {loadingReservas ? (
                 <div className="p-4 text-center"><div className="spinner-border text-warning"/></div>

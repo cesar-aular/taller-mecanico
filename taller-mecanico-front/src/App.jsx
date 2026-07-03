@@ -12,6 +12,7 @@ import Register from './pages/Register.jsx'
 import UserManagement from './pages/UserManagement.jsx'
 import Reservas from './pages/Reservas.jsx'
 import Ordenes from './pages/Ordenes.jsx'
+import Citas from './pages/Citas.jsx'
 
 // Mapa de rutas de la SPA.
 // - /login es pública.
@@ -29,7 +30,9 @@ export default function App() {
         
         <Route path="/reservas" element={<ProtectedRoute><Reservas /></ProtectedRoute>} />
         <Route path="/usuarios" element={<ProtectedRoute requireAdmin><UserManagement /></ProtectedRoute>} />
-        <Route path="/ordenes" element={<ProtectedRoute requireAdmin><Ordenes /></ProtectedRoute>} />
+        {/* Órdenes y Citas: las opera la secretaria (USER) y también el jefe (ADMIN) */}
+        <Route path="/ordenes" element={<ProtectedRoute><Ordenes /></ProtectedRoute>} />
+        <Route path="/citas" element={<ProtectedRoute><Citas /></ProtectedRoute>} />
 
         {/* Listados y detalle: lectura para USER y ADMIN (funcionalidad ROLE_USER).
             Crear/editar exigen ADMIN. */}

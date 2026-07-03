@@ -21,9 +21,10 @@ export default function NavBar() {
         <div className="navbar-nav me-auto">
           <Link className="nav-link" to="/clientes">Clientes</Link>
           <Link className="nav-link" to="/vehiculos">Vehículos</Link>
-          {isAdmin && <Link className="nav-link" to="/ordenes">Órdenes</Link>}
+          <Link className="nav-link" to="/citas">Citas</Link>
+          <Link className="nav-link" to="/ordenes">Órdenes</Link>
+          {!isAdmin && <Link className="nav-link text-warning" to="/reservas">Agendar</Link>}
           {isAdmin && <Link className="nav-link text-warning" to="/usuarios">Usuarios</Link>}
-          {!isAdmin && <Link className="nav-link text-warning" to="/reservas">Mis Reservas</Link>}
         </div>
         <span className="navbar-text me-3">
           {user.username}{' '}
