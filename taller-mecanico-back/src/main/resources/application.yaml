@@ -1,3 +1,16 @@
+server:
+  port: 8067
+
 spring:
-  application:
-    name: taller-mecanico-back
+  datasource:
+    url: jdbc:postgresql://localhost:5432/taller
+    username: admin
+    password: password123
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
