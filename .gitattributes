@@ -1,2 +1,10 @@
-/mvnw text eol=lf
+# El wrapper de Maven DEBE conservar LF aunque el repo se clone en Windows.
+# Sin la barra inicial, la regla aplica en cualquier subcarpeta (antes /mvnw
+# solo apuntaba a la raíz y dejaba taller-mecanico-back/mvnw sin normalizar,
+# lo que provocaba CRLF -> shebang roto -> "exit 127" al construir el contenedor).
+mvnw text eol=lf
+*.sh text eol=lf
+
+# Scripts y batch de Windows conservan CRLF
+mvnw.cmd text eol=crlf
 *.cmd text eol=crlf
