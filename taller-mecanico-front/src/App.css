@@ -1,7 +1,29 @@
+/* ============================================================
+   Toño's Motors — tema "taller industrial" (acero + ámbar)
+   Se apoya en Bootstrap y sobreescribe con variables + acentos.
+   ============================================================ */
+
+:root {
+  --tm-bg-1:      #1b1e23;
+  --tm-bg-2:      #121417;
+  --tm-surface:   #23262c;
+  --tm-surface-2: #2b2f36;
+  --tm-border:    #363b43;
+  --tm-amber:     #ffc107;
+  --tm-amber-dk:  #e0a800;
+  --tm-steel:     #4d9fd6;
+  --tm-text:      #e9ecef;
+  --tm-muted:     #9aa4af;
+}
+
 body {
-  background-color: #2b2b2b;
-  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 20.5V18H0v-2h20v-2H0v-2h20v-2H0V8h20V6H0V4h20V2H0V0h22v20h2V0h2v20h2V0h2v20h2V0h2v20h2V0h2v20h2v2H20v-1.5zM0 20h2v20H0V20zm4 0h2v20H4V20zm4 0h2v20H8V20zm4 0h2v20h-2V20zm4 0h2v20h-2V20zm4 4h20v2H20v-2zm0 4h20v2H20v-2zm0 4h20v2H20v-2zm0 4h20v2H20v-2z' fill='%23363636' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
-  color: #f0f0f0;
+  background-color: var(--tm-bg-1);
+  background-image:
+    radial-gradient(1200px 600px at 80% -10%, rgba(255, 193, 7, 0.06), transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, rgba(77, 159, 214, 0.06), transparent 55%),
+    linear-gradient(180deg, var(--tm-bg-1) 0%, var(--tm-bg-2) 100%);
+  background-attachment: fixed;
+  color: var(--tm-text);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -11,77 +33,190 @@ body {
   min-height: 100vh;
 }
 
-/* Card styling to stand out against textured background */
+/* ---- Encabezados de página ---- */
+h1, h2, h3, h4, h5 { color: var(--tm-text); }
+
+.container > h2:first-child,
+h2.page-title {
+  position: relative;
+  padding-left: 14px;
+  margin-bottom: 1.25rem;
+  font-weight: 700;
+}
+.container > h2:first-child::before,
+h2.page-title::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 4px; bottom: 4px;
+  width: 5px; border-radius: 4px;
+  background: linear-gradient(180deg, var(--tm-amber), var(--tm-amber-dk));
+}
+
+/* ---- Tarjetas ---- */
 .card {
-  background-color: rgba(45, 45, 45, 0.95);
-  border: 1px solid #444;
-  color: #fff;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  background: linear-gradient(180deg, var(--tm-surface) 0%, var(--tm-surface-2) 100%);
+  border: 1px solid var(--tm-border);
+  border-radius: 14px;
+  color: var(--tm-text);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
 }
-
-.card-title {
-  color: #ffc107; /* Warning yellow for mechanic feel */
+.card.h-100:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.45);
+  border-color: rgba(255, 193, 7, 0.5);
+}
+.card-header {
+  background: rgba(0, 0, 0, 0.25);
+  border-bottom: 1px solid var(--tm-border);
   font-weight: 600;
+  border-radius: 14px 14px 0 0 !important;
 }
+.card-title { color: var(--tm-amber); font-weight: 600; }
+.card-text  { color: #cdd3da; }
+.border-warning { border-color: rgba(255, 193, 7, 0.55) !important; }
+.border-info    { border-color: rgba(77, 159, 214, 0.55) !important; }
 
-.card-text {
-  color: #dcdcdc;
-}
-
-/* Navbar */
+/* ---- Navbar ---- */
 .navbar {
-  background-color: #1a1a1a !important;
-  border-bottom: 3px solid #ffc107;
+  background-color: rgba(18, 20, 23, 0.92) !important;
+  backdrop-filter: blur(8px);
+  border-bottom: 3px solid var(--tm-amber);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
 }
-
 .navbar-brand {
-  font-weight: bold;
-  font-size: 1.5rem;
-  color: #ffc107 !important;
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: var(--tm-amber) !important;
+  letter-spacing: 0.3px;
+}
+.navbar .nav-link {
+  color: #d5dbe1 !important;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 0.35rem 0.75rem !important;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.navbar .nav-link:hover {
+  color: var(--tm-amber) !important;
+  background: rgba(255, 193, 7, 0.1);
 }
 
-/* Primary buttons (warning yellow) */
-.btn-primary {
-  background-color: #ffc107;
-  border-color: #ffc107;
+/* ---- Botones ---- */
+.btn { border-radius: 9px; font-weight: 600; }
+.btn-primary,
+.btn-warning {
+  background-color: var(--tm-amber);
+  border-color: var(--tm-amber);
   color: #212529;
-  font-weight: 600;
 }
-.btn-primary:hover {
-  background-color: #e0a800;
-  border-color: #d39e00;
+.btn-primary:hover,
+.btn-warning:hover {
+  background-color: var(--tm-amber-dk);
+  border-color: var(--tm-amber-dk);
+  color: #212529;
+  box-shadow: 0 6px 16px rgba(255, 193, 7, 0.28);
+}
+.btn-outline-warning {
+  color: var(--tm-amber);
+  border-color: var(--tm-amber);
+}
+.btn-outline-warning:hover {
+  background-color: var(--tm-amber);
   color: #212529;
 }
 
-/* Footer */
+/* ---- Formularios (unifica inputs claros/oscuros de todas las vistas) ---- */
+.form-control,
+.form-select,
+textarea.form-control {
+  background-color: #191c21;
+  border: 1px solid var(--tm-border);
+  color: var(--tm-text);
+}
+.form-control::placeholder { color: #6b7480; }
+.form-control:focus,
+.form-select:focus {
+  background-color: #191c21;
+  color: var(--tm-text);
+  border-color: var(--tm-amber);
+  box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.2);
+}
+.form-label { color: #cdd3da; font-weight: 500; }
+.form-text  { color: var(--tm-muted) !important; }
+
+/* ---- Tablas (modo oscuro vía variables de Bootstrap) ---- */
+.table {
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--tm-text);
+  --bs-table-striped-bg: rgba(255, 255, 255, 0.035);
+  --bs-table-striped-color: var(--tm-text);
+  --bs-table-hover-bg: rgba(255, 193, 7, 0.1);
+  --bs-table-hover-color: #fff;
+  --bs-table-border-color: var(--tm-border);
+  margin-bottom: 0;
+}
+.table thead th {
+  color: var(--tm-amber);
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid var(--tm-border);
+}
+.table-panel {
+  background: var(--tm-surface);
+  border: 1px solid var(--tm-border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* ---- Listas ---- */
+.list-group-item { background-color: transparent; color: var(--tm-text); }
+
+/* ---- Alertas ---- */
+.alert-danger  { background: rgba(220, 53, 69, 0.14); border-color: rgba(220, 53, 69, 0.4); color: #ff9aa4; }
+.alert-success { background: rgba(25, 135, 84, 0.16); border-color: rgba(25, 135, 84, 0.4); color: #7ee2b0; }
+.alert-warning { background: rgba(255, 193, 7, 0.14); border-color: rgba(255, 193, 7, 0.4); color: #ffd95e; }
+
+/* ---- Footer ---- */
 .footer {
-  background-color: #1a1a1a;
-  border-top: 1px solid #444;
-  color: #aaa;
-  padding: 20px 0;
+  background-color: rgba(18, 20, 23, 0.95);
+  border-top: 1px solid var(--tm-border);
+  color: var(--tm-muted);
+  padding: 22px 0;
   margin-top: auto;
 }
 
+/* ---- Dashboard: métricas ---- */
 .metric-card {
   text-align: center;
-  padding: 20px;
-  border-radius: 8px;
-  background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
-  border: 1px solid #555;
+  padding: 22px 16px;
+  border-radius: 14px;
+  background: linear-gradient(150deg, var(--tm-surface-2), var(--tm-surface));
+  border: 1px solid var(--tm-border);
   margin-bottom: 20px;
+  transition: transform 0.18s ease, border-color 0.18s ease;
 }
-
+.metric-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 193, 7, 0.5);
+}
 .metric-number {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #ffc107;
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--tm-amber);
+  line-height: 1.1;
 }
 
+/* ---- Hero ---- */
 .hero-img {
   width: 100%;
-  height: 300px;
+  height: 320px;
   object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  border: 2px solid #555;
+  border-radius: 16px;
+  margin-bottom: 8px;
+  border: 1px solid var(--tm-border);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
+  filter: saturate(1.05) contrast(1.03);
 }

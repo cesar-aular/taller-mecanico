@@ -38,7 +38,9 @@ export default function ClientesList() {
         )}
       </div>
       {error && <div className="alert alert-danger">{error}</div>}
-      <table className="table table-striped table-hover">
+      <div className="table-panel">
+      <div className="table-responsive">
+      <table className="table table-striped table-hover align-middle">
         <thead>
           <tr>
             <th>ID</th>
@@ -74,6 +76,8 @@ export default function ClientesList() {
           ))}
         </tbody>
       </table>
+      </div>
+      </div>
     </div>
   )
 }

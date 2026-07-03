@@ -31,3 +31,14 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Logs ###
+*.log
+
+### Node / Front build ###
+node_modules/
+dist/
+.env
+
+### Presentación (material de estudio, no versionado) ###
+presentacion/

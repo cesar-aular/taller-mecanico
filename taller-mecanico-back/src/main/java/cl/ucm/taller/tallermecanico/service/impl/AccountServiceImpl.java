@@ -65,8 +65,12 @@ public class AccountServiceImpl implements AccountService {
             throw new ConflictException("El nombre de usuario ya existe");
         }
 
-        Role role = roleRepository.findByName(in.getRol())
-                .orElseThrow(() -> new NotFoundException("El rol indicado no existe: " + in.getRol()));
+        // El registro público SIEMPRE crea usuarios con ROLE_USER: /auth/register es
+        // permitAll(), así que si confiáramos en in.getRol() cualquiera podría enviar
+        // {"rol":"ROLE_ADMIN"} y auto-promoverse (escalada de privilegios). Un admin ya
+        // existente es quien promueve roles desde /api/users (UserController).
+        Role role = roleRepository.findByName("ROLE_USER")
+                .orElseThrow(() -> new NotFoundException("El rol ROLE_USER no existe"));
 
         User newUser = new User();
         newUser.setUsername(in.getUsername());

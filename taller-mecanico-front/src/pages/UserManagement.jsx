@@ -40,7 +40,7 @@ export default function UserManagement() {
   if (error) return <div className="alert alert-danger">{error}</div>
 
   return (
-    <div>
+    <div className="container">
       <h2 className="mb-4 text-warning">Gestión de Usuarios</h2>
       <p className="text-light">Panel de administración para visualizar a todos los usuarios registrados y modificar sus privilegios de acceso.</p>
       

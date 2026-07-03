@@ -122,9 +122,9 @@ export default function Reservas() {
                 onChange={handleChange}
                 required
               >
-                <option value="1">Carlos "El Tuercas" López (Especialista en Motor)</option>
-                <option value="2">Luis Martínez (Especialista en Frenos)</option>
-                <option value="3">Roberto Gómez (Especialista Eléctrico)</option>
+                <option value="1">Antonio "Toño" Ruiz (Motor y Transmisión)</option>
+                <option value="2">Carlos "El Tuercas" (Frenos y Suspensión)</option>
+                <option value="3">Luis Martínez (Electricidad Automotriz)</option>
               </select>
             </div>
 
