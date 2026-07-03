@@ -1,15 +1,32 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { apiFetch } from '../api/api.js'
 
 export default function Reservas() {
+  const [reservas, setReservas] = useState([])
   const [formData, setFormData] = useState({
     motivo: '',
     fecha: '',
     mecanicoId: '1' // Por defecto el mecánico 1
   })
   const [loading, setLoading] = useState(false)
+  const [loadingReservas, setLoadingReservas] = useState(true)
   const [success, setSuccess] = useState('')
   const [error, setError] = useState('')
+
+  useEffect(() => {
+    fetchReservas()
+  }, [])
+
+  const fetchReservas = async () => {
+    try {
+      const data = await apiFetch('/api/reservas')
+      setReservas(data)
+    } catch (err) {
+      console.error("Error al cargar reservas:", err)
+    } finally {
+      setLoadingReservas(false)
+    }
+  }
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -46,6 +63,7 @@ export default function Reservas() {
       })
       setSuccess("Reserva creada exitosamente.")
       setFormData({ motivo: '', fecha: '', mecanicoId: '1' })
+      fetchReservas() // Recargar lista
     } catch (err) {
       setError("Error al crear reserva: " + err.message)
     } finally {
@@ -54,16 +72,19 @@ export default function Reservas() {
   }
 
   return (
-    <div className="container" style={{ maxWidth: 600 }}>
+    <div className="container mt-4" style={{ maxWidth: 800 }}>
       <h2 className="mb-4 text-warning">Agendar Cita en Toño's Motors</h2>
       <p className="text-light">
         Selecciona la fecha y describe el problema de tu vehículo. Asignaremos al mecánico disponible o al de tu preferencia.
       </p>
 
-      <div className="card shadow border-info mt-4">
-        <div className="card-body">
-          {error && <div className="alert alert-danger">{error}</div>}
-          {success && <div className="alert alert-success">{success}</div>}
+      <div className="row">
+        <div className="col-md-6 mb-4">
+          <div className="card shadow border-info h-100">
+            <div className="card-header bg-info text-dark fw-bold">Nueva Reserva</div>
+            <div className="card-body">
+              {error && <div className="alert alert-danger">{error}</div>}
+              {success && <div className="alert alert-success">{success}</div>}
 
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
@@ -111,6 +132,34 @@ export default function Reservas() {
               {loading ? 'Procesando...' : 'Confirmar Reserva'}
             </button>
           </form>
+        </div>
+      </div>
+        </div>
+
+        <div className="col-md-6 mb-4">
+          <div className="card shadow border-warning h-100">
+            <div className="card-header bg-warning text-dark fw-bold">Mis Reservas</div>
+            <div className="card-body p-0">
+              {loadingReservas ? (
+                <div className="p-4 text-center"><div className="spinner-border text-warning"/></div>
+              ) : reservas.length === 0 ? (
+                <div className="p-4 text-center text-muted">Aún no has agendado ninguna cita.</div>
+              ) : (
+                <ul className="list-group list-group-flush">
+                  {reservas.map(r => (
+                    <li key={r.id} className="list-group-item bg-dark text-light border-secondary">
+                      <div className="d-flex justify-content-between align-items-center mb-1">
+                        <strong className="text-info">{new Date(r.fecha).toLocaleString()}</strong>
+                        <span className={`badge ${r.estado === 'Pendiente' ? 'bg-secondary' : 'bg-success'}`}>{r.estado}</span>
+                      </div>
+                      <div className="mb-1">{r.motivo}</div>
+                      <small className="text-warning">Mecánico: {r.mecanicoNombre}</small>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
