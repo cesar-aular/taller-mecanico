@@ -25,7 +25,7 @@ export default function NavBar() {
         <span className="navbar-text me-3">
           {user.username}{' '}
           <span className={`badge ${isAdmin ? 'text-bg-warning' : 'text-bg-info'}`}>
-            {isAdmin ? 'ADMIN' : 'USER'}
+            {isAdmin ? 'Admin' : 'User'}
           </span>
         </span>
         <button className="btn btn-outline-light btn-sm" onClick={handleLogout}>
