@@ -29,12 +29,12 @@ export default function App() {
         <Route path="/reservas" element={<ProtectedRoute><Reservas /></ProtectedRoute>} />
         <Route path="/usuarios" element={<ProtectedRoute requireAdmin><UserManagement /></ProtectedRoute>} />
 
-        <Route path="/clientes" element={<ProtectedRoute><ClientesList /></ProtectedRoute>} />
+        <Route path="/clientes" element={<ProtectedRoute requireAdmin><ClientesList /></ProtectedRoute>} />
         <Route path="/clientes/nuevo" element={<ProtectedRoute requireAdmin><ClienteForm /></ProtectedRoute>} />
-        <Route path="/clientes/:id" element={<ProtectedRoute><ClienteDetalle /></ProtectedRoute>} />
+        <Route path="/clientes/:id" element={<ProtectedRoute requireAdmin><ClienteDetalle /></ProtectedRoute>} />
         <Route path="/clientes/:id/editar" element={<ProtectedRoute requireAdmin><ClienteForm /></ProtectedRoute>} />
 
-        <Route path="/vehiculos" element={<ProtectedRoute><VehiculosList /></ProtectedRoute>} />
+        <Route path="/vehiculos" element={<ProtectedRoute requireAdmin><VehiculosList /></ProtectedRoute>} />
         <Route path="/vehiculos/nuevo" element={<ProtectedRoute requireAdmin><VehiculoForm /></ProtectedRoute>} />
         <Route path="/vehiculos/:id/editar" element={<ProtectedRoute requireAdmin><VehiculoForm /></ProtectedRoute>} />
 
