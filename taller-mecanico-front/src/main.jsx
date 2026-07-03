@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 // Framework CSS exigido por la rúbrica: Bootstrap (importado desde node_modules)
 import 'bootstrap/dist/css/bootstrap.min.css'
+import './App.css'
 import App from './App.jsx'
 import { AuthProvider } from './auth/AuthContext.jsx'
 

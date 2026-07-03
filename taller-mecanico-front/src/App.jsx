@@ -34,6 +34,16 @@ export default function App() {
         {/* Cualquier otra ruta vuelve al inicio */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      
+      {/* Footer corporativo Toño's Motors */}
+      <footer className="footer mt-auto">
+        <div className="container text-center">
+          <p className="mb-1 fw-bold text-warning">© 2026 Toño's Motors. Todos los derechos reservados.</p>
+          <p className="mb-0 text-muted small">
+            📍 Av. Los Tacos 123, Ciudad de Motores | 📞 +56 9 1234 5678 | ✉️ contacto@tonosmotors.cl
+          </p>
+        </div>
+      </footer>
     </>
   )
 }

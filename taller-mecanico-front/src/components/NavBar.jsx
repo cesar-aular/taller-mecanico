@@ -17,7 +17,7 @@ export default function NavBar() {
   return (
     <nav className="navbar navbar-expand navbar-dark bg-dark mb-4">
       <div className="container">
-        <Link className="navbar-brand" to="/">🔧 Taller Mecánico</Link>
+        <Link className="navbar-brand" to="/">⚙️ Toño's Motors</Link>
         <div className="navbar-nav me-auto">
           <Link className="nav-link" to="/clientes">Clientes</Link>
           <Link className="nav-link" to="/vehiculos">Vehículos</Link>

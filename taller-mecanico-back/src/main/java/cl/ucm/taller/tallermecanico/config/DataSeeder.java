@@ -10,8 +10,13 @@ import cl.ucm.taller.tallermecanico.repository.MecanicoRepository;
 import cl.ucm.taller.tallermecanico.repository.RoleRepository;
 import cl.ucm.taller.tallermecanico.repository.UserRepository;
 import cl.ucm.taller.tallermecanico.repository.VehiculoRepository;
+import cl.ucm.taller.tallermecanico.repository.OrdenTrabajoRepository;
+import cl.ucm.taller.tallermecanico.repository.RepuestoRepository;
+import cl.ucm.taller.tallermecanico.entity.OrdenTrabajo;
+import cl.ucm.taller.tallermecanico.entity.Repuesto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import java.time.LocalDateTime;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -24,6 +29,8 @@ public class DataSeeder implements CommandLineRunner {
     private final ClienteRepository clienteRepository;
     private final VehiculoRepository vehiculoRepository;
     private final MecanicoRepository mecanicoRepository;
+    private final OrdenTrabajoRepository ordenTrabajoRepository;
+    private final RepuestoRepository repuestoRepository;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
@@ -81,13 +88,35 @@ public class DataSeeder implements CommandLineRunner {
         }
 
         if (mecanicoRepository.count() == 0) {
-            System.out.println("🌱 Base de datos vacía. Insertando Mocks de Mecánicos...");
-            Mecanico m1 = new Mecanico();
-            m1.setNombreCompleto("Carlos El Tuercas");
-            m1.setEspecialidad("Frenos y Suspensión");
-            mecanicoRepository.save(m1);
+            System.out.println("🌱 Insertando Mocks de Mecánicos, Órdenes y Repuestos...");
+            Mecanico m1 = new Mecanico(null, "Antonio 'Toño' Ruiz", "Motor y Transmisión");
+            Mecanico m2 = new Mecanico(null, "Carlos 'El Tuercas'", "Frenos y Suspensión");
+            Mecanico m3 = new Mecanico(null, "Luis Martínez", "Electricidad Automotriz");
+            mecanicoRepository.saveAll(List.of(m1, m2, m3));
+
+            Cliente c1 = clienteRepository.findAll().get(0);
+            Vehiculo v1 = vehiculoRepository.findAll().get(0);
+
+            // Vehículo 2
+            Vehiculo v2 = new Vehiculo(null, "XXYY-99", "Ford", "Ranger", 2021, c1);
+            vehiculoRepository.save(v2);
+
+            // Órdenes de trabajo
+            OrdenTrabajo o1 = new OrdenTrabajo(null, "Frenos largos", LocalDateTime.now().minusDays(5), "Entregado", 150000.0, v1, m2);
+            OrdenTrabajo o2 = new OrdenTrabajo(null, "Cambio de aceite y filtros", LocalDateTime.now().minusDays(2), "Listo", 45000.0, v2, m1);
+            OrdenTrabajo o3 = new OrdenTrabajo(null, "Ruido en el motor al acelerar", LocalDateTime.now(), "Pendiente", 0.0, v1, null);
+            OrdenTrabajo o4 = new OrdenTrabajo(null, "Revisión eléctrica luces", LocalDateTime.now().minusDays(1), "En reparación", 80000.0, v2, m3);
+            ordenTrabajoRepository.saveAll(List.of(o1, o2, o3, o4));
+
+            // Repuestos
+            Repuesto r1 = new Repuesto(null, "Pastillas de Freno", 2, 25000.0, o1);
+            Repuesto r2 = new Repuesto(null, "Líquido de Frenos", 1, 10000.0, o1);
+            Repuesto r3 = new Repuesto(null, "Filtro de Aceite", 1, 15000.0, o2);
+            Repuesto r4 = new Repuesto(null, "Aceite 5W30", 4, 8000.0, o2);
+            Repuesto r5 = new Repuesto(null, "Fusibles varios", 3, 2000.0, o4);
+            repuestoRepository.saveAll(List.of(r1, r2, r3, r4, r5));
         }
 
-        System.out.println("✅ Datos Mocks listos para que el Frontend los consuma.");
+        System.out.println("✅ Datos Mocks listos para Toño's Motors.");
     }
 }
