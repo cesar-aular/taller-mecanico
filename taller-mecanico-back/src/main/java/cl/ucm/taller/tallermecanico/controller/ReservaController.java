@@ -26,6 +26,7 @@ import cl.ucm.taller.tallermecanico.error.NotFoundException;
 import cl.ucm.taller.tallermecanico.error.ConflictException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @RestController
 @RequestMapping("/api/reservas")
@@ -105,7 +106,7 @@ public class ReservaController {
         orden.setDescripcionProblema(reserva.getMotivo());
         orden.setFechaIngreso(LocalDateTime.now());
         orden.setEstado("Pendiente");
-        orden.setCostoTotal(0.0);
+        orden.setCostoTotal(dto.getCostoTotal());
         orden.setVehiculo(vehiculo);
         orden.setMecanico(reserva.getMecanico());
         orden = ordenTrabajoRepository.save(orden);
@@ -140,6 +141,10 @@ public class ReservaController {
     public static class ConvertirDtoIn {
         @NotNull(message = "Debes seleccionar el vehículo que ingresa al taller")
         private Long vehiculoId;
+
+        @NotNull(message = "El costo es requerido")
+        @PositiveOrZero(message = "El costo no puede ser negativo")
+        private Double costoTotal;
     }
 
     @Data

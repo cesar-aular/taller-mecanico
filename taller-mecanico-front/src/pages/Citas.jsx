@@ -13,6 +13,7 @@ export default function Citas() {
   const [msg, setMsg] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
+  const [costo, setCosto] = useState('')
 
   const cargar = () => {
     apiFetch('/api/reservas')
@@ -30,18 +31,22 @@ export default function Citas() {
     setError(''); setMsg('')
     setConvertId(cita.id)
     setVehiculoId(vehiculos[0] ? String(vehiculos[0].id) : '')
+    setCosto('')
   }
 
   const convertir = async () => {
     if (!vehiculoId) { setError('Selecciona un vehículo.'); return }
+    if (costo !== '' && Number(costo) < 0) { setError('El costo no puede ser negativo.'); return }
     setError(''); setMsg('')
     try {
       const res = await apiFetch(`/api/reservas/${convertId}/convertir`, {
         method: 'POST',
-        body: JSON.stringify({ vehiculoId: Number(vehiculoId) }),
+        // costoTotal es opcional: si se deja vacío se envía 0 (se ajusta luego en la orden)
+        body: JSON.stringify({ vehiculoId: Number(vehiculoId), costoTotal: Number(costo) || 0 }),
       })
       setMsg(res.mensaje)
       setConvertId(null)
+      setCosto('')
       cargar()
     } catch (err) {
       setError(err.message)
@@ -72,9 +77,10 @@ export default function Citas() {
         <div className="card border-warning mb-3">
           <div className="card-body">
             <h5 className="card-title text-warning">Convertir cita #{convertId} en orden de trabajo</h5>
-            <p className="text-muted mb-3">Selecciona el vehículo que ingresa al taller:</p>
+            <p className="text-muted mb-3">Recepciona el vehículo y define el costo estimado de la reparación:</p>
             <div className="row g-2 align-items-end">
-              <div className="col-md-8">
+              <div className="col-md-6">
+                <label className="form-label small text-muted mb-1">Vehículo que ingresa</label>
                 <select className="form-select" value={vehiculoId} onChange={(e) => setVehiculoId(e.target.value)}>
                   {vehiculos.map((v) => (
                     <option key={v.id} value={v.id}>
@@ -83,7 +89,19 @@ export default function Citas() {
                   ))}
                 </select>
               </div>
-              <div className="col-md-4 d-flex gap-2">
+              <div className="col-md-3">
+                <label className="form-label small text-muted mb-1">Costo estimado (CLP)</label>
+                <input
+                  type="number"
+                  min="0"
+                  step="1000"
+                  className="form-control"
+                  placeholder="0"
+                  value={costo}
+                  onChange={(e) => setCosto(e.target.value)}
+                />
+              </div>
+              <div className="col-md-3 d-flex gap-2">
                 <button className="btn btn-warning fw-bold flex-fill" onClick={convertir}>Crear orden</button>
                 <button className="btn btn-outline-secondary" onClick={() => setConvertId(null)}>Cancelar</button>
               </div>
